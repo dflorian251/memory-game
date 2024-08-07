@@ -7,14 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { GamePageRoutingModule } from './game-routing.module';
 
 import { GamePage } from './game.page';
+import { HomePage } from '../home/home.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GamePageRoutingModule
+    GamePageRoutingModule,
+    
   ],
-  declarations: [GamePage]
+  declarations: [
+    GamePage,
+    HomePage
+  ]
 })
 export class GamePageModule {}
