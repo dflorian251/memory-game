@@ -9,4 +9,7 @@
 <ion-content class="ion-padding">
   <h1>Game</h1>
   <p>Use the back button to navigate to the previous page.</p>
+  <div *ngFor="let card of levelCards">
+    <app-memory-card [cardClass]="card.cardClass" [cardSrc]="card.cardSrc"></app-memory-card>
+  </div>
 </ion-content>
