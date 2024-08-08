@@ -36,23 +36,37 @@ export class GamePage implements OnInit {
     const isFlipped = classList.contains('flipped');
     const isPaired = classList.contains('paired');
 
-    if (isPaired) {
-      return;
+    if (isPaired || this.openedCards.length >= 2) {
+      if (this.openedCards.length >= 2) {
+        console.log('Too many opened cards.');
+        clickedCard.setAttribute('src', 'https://ionicframework.com/docs/img/demos/card-media.png');
+        classList.toggle('flipped');
+        this.openedCards.pop();
+      }
+      
+    } else {
+      let newSrc: string;
+
+      if (isFlipped) {
+        newSrc = 'https://ionicframework.com/docs/img/demos/card-media.png';
+        this.openedCards.pop();
+      } else {
+        newSrc = `https://picsum.photos/id/${clickedCard.className[0]}/350/304`;
+        this.openedCards.push(clickedCard);
+      }
+      
+      clickedCard.setAttribute('src', newSrc);
+      classList.toggle('flipped');
+      
+      this.checkCards(event);
+      console.log(`Cards opened: ${this.openedCards.length}`);
     }
 
-    const newSrc = isFlipped
-    ? 'https://ionicframework.com/docs/img/demos/card-media.png'
-    : `https://picsum.photos/id/${clickedCard.className[0]}/350/304`;
-  
-    clickedCard.setAttribute('src', newSrc);
-    classList.toggle('flipped');
-    this.checkCards(event);
+
   }
 
   checkCards(event : Event) {
     const clickedCard = event.target as HTMLElement;
-
-    this.openedCards.push(clickedCard);
 
     console.log(this.openedCards);
 
