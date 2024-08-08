@@ -36,19 +36,20 @@ export class GamePage implements OnInit {
     const isFlipped = classList.contains('flipped');
     const isPaired = classList.contains('paired');
 
-    if (isPaired || this.openedCards.length >= 2) {
-      if (this.openedCards.length >= 2) {
+    if (isPaired) {
+      
+      console.log('This shit is paired.');
+
+    } else if (this.openedCards.length >= 2) {
  
-        if (isFlipped) {
-          clickedCard.setAttribute('src', 'https://ionicframework.com/docs/img/demos/card-media.png');
-          classList.toggle('flipped');
-          this.openedCards.pop();
-        }
+      if (isFlipped) {
+        clickedCard.setAttribute('src', 'https://ionicframework.com/docs/img/demos/card-media.png');
+        classList.toggle('flipped');
+        this.openedCards.pop();
       }
-      if (isPaired) {
-        console.log('This shit is paired.');
-      }
+
     } else {
+
       let newSrc: string;
 
       if (isFlipped) {
@@ -75,7 +76,7 @@ export class GamePage implements OnInit {
     const isFlipped = classList.contains('flipped');
 
     if (isFlipped) {
-      if (this.openedCards[0].className === clickedCard.className && this.openedCards.length > 1 ) {
+      if (this.openedCards[0].className === this.openedCards[1].className && this.openedCards.length > 1 ) {
         // Pair found
         this.openedCards[0].classList.add('paired');
         this.openedCards[1].classList.add('paired');
