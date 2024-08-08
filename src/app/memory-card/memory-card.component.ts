@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-memory-card',
@@ -9,9 +10,7 @@ export class MemoryCardComponent  implements OnInit {
   @Input() cardClass : string = '';
   @Input() cardSrc : string = '';
   
-
   constructor() { }
 
   ngOnInit() {}
-
 }

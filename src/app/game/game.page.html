@@ -13,7 +13,11 @@
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let card of levelCards" size="6" size-md="4" size-lg="3">
-        <app-memory-card [cardClass]="card.cardClass" [cardSrc]="card.cardSrc"></app-memory-card>
+        <app-memory-card
+          (click)="flipCard($event)"
+          [cardClass]="card.cardClass"
+          [cardSrc]="card.cardSrc"
+        ></app-memory-card>
       </ion-col>
     </ion-row>
   </ion-grid>
