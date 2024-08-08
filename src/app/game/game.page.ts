@@ -34,7 +34,12 @@ export class GamePage implements OnInit {
     const classList = clickedCard.classList;
     
     const isFlipped = classList.contains('flipped');
-  
+    const isPaired = classList.contains('paired');
+
+    if (isPaired) {
+      return;
+    }
+
     const newSrc = isFlipped
     ? 'https://ionicframework.com/docs/img/demos/card-media.png'
     : `https://picsum.photos/id/${clickedCard.className[0]}/350/304`;
@@ -46,13 +51,20 @@ export class GamePage implements OnInit {
 
   checkCards(event : Event) {
     const clickedCard = event.target as HTMLElement;
-    if (this.openedCards.length === 0) {
-      console.log('First card opened');
+    const classList = clickedCard.classList;
+    const isFlipped = classList.contains('flipped');
+
+    if (isFlipped) {
+
       this.openedCards.push(clickedCard);
-    } else {
       if (this.openedCards[0].className === clickedCard.className) {
         console.log('You found a pair!');
+        clickedCard.classList.add('paired');
+        this.openedCards[0].classList.add('paired');
+        
       }
+    } else {
+      return ;
     }
   }
 
