@@ -44,24 +44,11 @@ export class GamePage implements OnInit {
     
     const isFlipped = classList.contains('flipped');
   
-    if (isFlipped) {
-      // The card is flipped and now is going to be non-flipped
-      clickedCard.setAttribute('src', `https://ionicframework.com/docs/img/demos/card-media.png`)
-    } else {
-      clickedCard.setAttribute('src', `https://picsum.photos/id/${clickedCard.className[0]}/350/304`);
-    }
-
-
+    const newSrc = isFlipped
+    ? 'https://ionicframework.com/docs/img/demos/card-media.png'
+    : `https://picsum.photos/id/${clickedCard.className[0]}/350/304`;
+  
+    clickedCard.setAttribute('src', newSrc);
+    classList.toggle('flipped');
   }
 }
-
-
-    // if (!flipped) {
-    //   clickedCard.setAttribute('src', `https://picsum.photos/id/${clickedCard.className}/350/304`);
-    //   flipped = !flipped  
-    //   console.log(`Card is now shown`);
-    // } else {
-    //   clickedCard.setAttribute('src', `https://ionicframework.com/docs/img/demos/card-media.png`)
-    //   flipped = !flipped
-    //   console.log(`card shit`);
-    // }
