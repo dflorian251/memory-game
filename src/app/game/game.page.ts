@@ -11,27 +11,18 @@ import { ViewChild } from '@angular/core';
 export class GamePage implements OnInit {
   levelCards : memoryCard[] = [];
 
+  openedCards : any[] = [];
+
   constructor() {
-    // this.createCards();
     this.initializeCards();
   }
 
   ngOnInit() {
   }
 
-
-  createCards() {
-    this.levelCards = [
-      new memoryCard('card1', 'https://picsum.photos/id/1/350/304'),
-      new memoryCard('card1', 'https://picsum.photos/id/1/350/308'),
-      new memoryCard('card2', 'https://picsum.photos/id/3/350/308'),
-      new memoryCard('card2', 'https://picsum.photos/id/3/350/308'),
-    ]
-  }
-
   initializeCards() {
     this.levelCards = [
-      new memoryCard('1 non-flipped', 'https://ionicframework.com/docs/img/demos/card-media.png'),
+      new memoryCard('1', 'https://ionicframework.com/docs/img/demos/card-media.png'),
       new memoryCard('2', 'https://ionicframework.com/docs/img/demos/card-media.png'),
       new memoryCard('1', 'https://ionicframework.com/docs/img/demos/card-media.png'),
       new memoryCard('2', 'https://ionicframework.com/docs/img/demos/card-media.png'),
@@ -50,5 +41,20 @@ export class GamePage implements OnInit {
   
     clickedCard.setAttribute('src', newSrc);
     classList.toggle('flipped');
+    this.checkCards(event);
   }
+
+  checkCards(event : Event) {
+    const clickedCard = event.target as HTMLElement;
+    if (this.openedCards.length === 0) {
+      console.log('First card opened');
+      this.openedCards.push(clickedCard);
+    } else {
+      if (this.openedCards[0].className === clickedCard.className) {
+        console.log('You found a pair!');
+      }
+    }
+  }
+
+
 }
