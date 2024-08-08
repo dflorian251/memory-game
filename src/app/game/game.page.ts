@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { memoryCard } from 'src/shared/models/memoryCard';
-import { MemoryCardComponent } from '../memory-card/memory-card.component';
-import { ViewChild } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-game',
@@ -13,7 +12,9 @@ export class GamePage implements OnInit {
 
   openedCards : HTMLElement[] = [];
 
-  constructor() {
+  cardsPaired : number = 0;
+
+  constructor(private alertController: AlertController) {
     this.initializeCards();
   }
 
@@ -85,11 +86,30 @@ export class GamePage implements OnInit {
         this.openedCards[0].style.pointerEvents = 'none';
         this.openedCards[1].style.pointerEvents = 'none';
 
+        this.cardsPaired++ ;
         this.openedCards = [];
+
+        this.checkLevel();
       }
     } else {
       return ;
     }
+  }
+
+  async checkLevel() {
+    let pairsNum = this.levelCards.length / 2;
+
+    if (pairsNum === this.cardsPaired) {
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        subHeader: 'Subtitle',
+        message: 'This is an alert message.',
+        buttons: ['OK']
+      });
+  
+      await alert.present();
+    }
+
   }
 
 
