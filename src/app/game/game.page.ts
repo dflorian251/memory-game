@@ -47,6 +47,7 @@ export class GamePage implements OnInit {
         classList.toggle('flipped');
         this.openedCards.pop();
       }
+      console.log('More that two cards open.');
 
     } else {
 
