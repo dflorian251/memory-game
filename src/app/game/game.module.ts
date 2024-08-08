@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -18,6 +18,7 @@ import { MemoryCardComponent } from '../memory-card/memory-card.component';
     IonicModule,
     GamePageRoutingModule,
     NgFor,
+    NgIf,
   ],
   declarations: [
     GamePage,
