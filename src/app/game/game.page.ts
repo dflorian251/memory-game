@@ -51,17 +51,22 @@ export class GamePage implements OnInit {
 
   checkCards(event : Event) {
     const clickedCard = event.target as HTMLElement;
+
+    this.openedCards.push(clickedCard);
+
+    console.log(this.openedCards);
+
     const classList = clickedCard.classList;
     const isFlipped = classList.contains('flipped');
 
     if (isFlipped) {
-
-      this.openedCards.push(clickedCard);
-      if (this.openedCards[0].className === clickedCard.className) {
-        console.log('You found a pair!');
-        clickedCard.classList.add('paired');
-        this.openedCards[0].classList.add('paired');
-        
+      if (this.openedCards.length > 1 ) {
+        if (this.openedCards[0].className === clickedCard.className) {
+          console.log('You found a pair!');
+          this.openedCards[1].classList.add('paired');
+          this.openedCards[0].classList.add('paired');
+          this.openedCards = [];
+        }
       }
     } else {
       return ;
