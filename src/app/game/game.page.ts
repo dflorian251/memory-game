@@ -11,7 +11,7 @@ import { ViewChild } from '@angular/core';
 export class GamePage implements OnInit {
   levelCards : memoryCard[] = [];
 
-  openedCards : any[] = [];
+  openedCards : HTMLElement[] = [];
 
   constructor() {
     this.initializeCards();
@@ -38,12 +38,16 @@ export class GamePage implements OnInit {
 
     if (isPaired || this.openedCards.length >= 2) {
       if (this.openedCards.length >= 2) {
-        console.log('Too many opened cards.');
-        clickedCard.setAttribute('src', 'https://ionicframework.com/docs/img/demos/card-media.png');
-        classList.toggle('flipped');
-        this.openedCards.pop();
+ 
+        if (isFlipped) {
+          clickedCard.setAttribute('src', 'https://ionicframework.com/docs/img/demos/card-media.png');
+          classList.toggle('flipped');
+          this.openedCards.pop();
+        }
       }
-      
+      if (isPaired) {
+        console.log('This shit is paired.');
+      }
     } else {
       let newSrc: string;
 
@@ -59,7 +63,6 @@ export class GamePage implements OnInit {
       classList.toggle('flipped');
       
       this.checkCards(event);
-      console.log(`Cards opened: ${this.openedCards.length}`);
     }
 
 
@@ -68,19 +71,19 @@ export class GamePage implements OnInit {
   checkCards(event : Event) {
     const clickedCard = event.target as HTMLElement;
 
-    console.log(this.openedCards);
-
     const classList = clickedCard.classList;
     const isFlipped = classList.contains('flipped');
 
     if (isFlipped) {
-      if (this.openedCards.length > 1 ) {
-        if (this.openedCards[0].className === clickedCard.className) {
-          console.log('You found a pair!');
-          this.openedCards[1].classList.add('paired');
-          this.openedCards[0].classList.add('paired');
-          this.openedCards = [];
-        }
+      if (this.openedCards[0].className === clickedCard.className && this.openedCards.length > 1 ) {
+        // Pair found
+        this.openedCards[0].classList.add('paired');
+        this.openedCards[1].classList.add('paired');
+
+        this.openedCards[0].style.pointerEvents = 'none';
+        this.openedCards[1].style.pointerEvents = 'none';
+
+        this.openedCards = [];
       }
     } else {
       return ;
